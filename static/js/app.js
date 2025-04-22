@@ -52,13 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
         headerButtons.filter(d => d.type === 'file' || d.type === 'class')
             .append("button")
             .attr("class", "add-child-btn")
-            .text(d => d.type === 'file' ? "Add Class" : "Add Method")
+            .attr("title", d => d.type === 'file' ? "Add Class" : "Add Method") // Tooltip
+            .html('<i class="fas fa-plus"></i>') // Icon
             .on("click", (event, d) => addChildBox(event, d));
+
+        // Copy button
+        headerButtons.append("button")
+            .attr("class", "copy-btn")
+            .attr("title", "Copy Code") // Tooltip
+            .html('<i class="fas fa-copy"></i>') // Icon
+            .on("click", (event, d) => copyCode(event, d));
 
         // Delete button
         headerButtons.append("button")
             .attr("class", "delete-btn")
-            .text("Delete")
+            .attr("title", "Delete Box") // Tooltip
+            .html('<i class="fas fa-trash-alt"></i>') // Icon
             .on("click", (event, d) => deleteBox(event, d));
 
         // Editor container
@@ -154,13 +163,22 @@ document.addEventListener('DOMContentLoaded', () => {
         childHeaderButtons.filter(d => d.type === 'class')
             .append("button")
             .attr("class", "add-child-btn")
-            .text("Add Method")
+            .attr("title", "Add Method") // Tooltip
+            .html('<i class="fas fa-plus"></i>') // Icon
             .on("click", (event, d) => addChildBox(event, d));
+
+        // Copy button
+        childHeaderButtons.append("button")
+            .attr("class", "copy-btn")
+            .attr("title", "Copy Code") // Tooltip
+            .html('<i class="fas fa-copy"></i>') // Icon
+            .on("click", (event, d) => copyCode(event, d));
 
         // Delete button
         childHeaderButtons.append("button")
             .attr("class", "delete-btn")
-            .text("Delete")
+            .attr("title", "Delete Box") // Tooltip
+            .html('<i class="fas fa-trash-alt"></i>') // Icon
             .on("click", (event, d) => deleteBox(event, d));
 
         // Editor container
@@ -314,6 +332,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         boxData.expanded = !boxData.expanded;
         update(); // Re-render to apply changes
+    }
+
+    function copyCode(event, boxData) {
+        event.stopPropagation(); // Prevent toggleExpand
+        const editor = editorManager.getEditor(boxData.id);
+        const codeToCopy = editor ? editor.getValue() : (boxData.code || '');
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(codeToCopy).then(() => {
+                // Provide feedback using icon
+                const button = d3.select(event.currentTarget); // Use d3 selection
+                const originalIconHTML = button.html(); // Store original icon
+                button.html('<i class="fas fa-check"></i>'); // Show checkmark
+                button.property("disabled", true);
+                setTimeout(() => {
+                    button.html(originalIconHTML); // Restore original icon
+                    button.property("disabled", false);
+                }, 1500); // Revert after 1.5 seconds
+            }).catch(err => {
+                console.error('Failed to copy code: ', err);
+                alert('Failed to copy code to clipboard.');
+            });
+        } else {
+            // Fallback for older browsers (less common now)
+            alert('Clipboard API not available in this browser.');
+        }
     }
 
     function getAllDescendants(parentId) {

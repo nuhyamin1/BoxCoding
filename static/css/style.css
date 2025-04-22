@@ -133,7 +133,17 @@ header h1 {
     background-color: #bbb;
     border: 1px solid #aaa;
     border-radius: 3px;
+    /* Adjustments for icon buttons */
+    padding: 3px 6px; /* Slightly less horizontal padding */
+    min-width: 28px; /* Ensure minimum width */
+    text-align: center;
 }
+
+.header-buttons button i { /* Target icons within buttons */
+    font-size: 0.9em; /* Adjust icon size if needed */
+    vertical-align: middle; /* Align icon vertically */
+}
+
 
 .header-buttons button:hover {
     background-color: #ccc;
