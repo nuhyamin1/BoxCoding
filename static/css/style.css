@@ -79,6 +79,37 @@ header h1 {
     background-color: #ddd;
 }
 
+/* Box Header Colors by Type */
+.file-box > .box-header {
+    background-color: #cfe2f3; /* Light Blue */
+}
+.file-box > .box-header:hover {
+    background-color: #a4c2f4; /* Darker Blue */
+}
+
+.class-box > .box-header {
+    background-color: #d9ead3; /* Light Green */
+}
+.class-box > .box-header:hover {
+    background-color: #b6d7a8; /* Darker Green */
+}
+
+.method-box > .box-header {
+    background-color: #fce5cd; /* Light Orange */
+}
+.method-box > .box-header:hover {
+    background-color: #f9cb9c; /* Darker Orange */
+}
+
+/* Add function styling just in case */
+.function-box > .box-header {
+    background-color: #e0d8ea; /* Light Purple */
+}
+.function-box > .box-header:hover {
+    background-color: #c9b7db; /* Darker Purple */
+}
+
+
 .editable-title {
     font-weight: bold;
     flex-grow: 1;
