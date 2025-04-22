@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoxCoding</title>
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Monaco Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.js"></script>
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>BoxCoding</h1>
+            <div class="toolbar">
+                <button id="add-file">Add File</button>
+                <button id="save-project">Save Project</button>
+                <button id="load-project">Load Project</button>
+                <button id="generate-code">Generate Code</button>
+            </div>
+        </header>
+        
+        <div id="main-container">
+            <div id="boxes-container"></div>
+            
+            <!-- Project loading modal -->
+            <div id="project-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Load Project</h2>
+                    <div id="projects-list"></div>
+                </div>
+            </div>
+            
+            <!-- Generated code modal -->
+            <div id="code-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Generated Code</h2>
+                    <div id="generated-code-container"></div>
+                    <button id="save-generated-code">Save Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
