@@ -20,7 +20,7 @@ def save_project():
     
     try:
         # Save project data to a JSON file
-        filename = f"{project_name}.boxcode"
+        filename = f"{project_name}.bc"
         with open(os.path.join(PROJECTS_DIR, filename), 'w') as f:
             json.dump(project_data, f, indent=4)
         return jsonify({"success": True, "message": f"Project saved as {filename}"})
@@ -42,7 +42,7 @@ def load_project():
 @app.route('/api/projects', methods=['GET'])
 def list_projects():
     try:
-        projects = [f for f in os.listdir(PROJECTS_DIR) if f.endswith('.boxcode')]
+        projects = [f for f in os.listdir(PROJECTS_DIR) if f.endswith('.bc')]
         return jsonify({"success": True, "projects": projects})
     except Exception as e:
         return jsonify({"success": False, "message": f"Error listing projects: {str(e)}"}), 500
